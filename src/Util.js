@@ -6,27 +6,19 @@ Util = {};
  * @returns {number}
  */
 Util.factorial = function(n) {
-
-    if (n < 0) {
-        throw 'Unable to compute factorial for n < 0'
-    }
-
-    if (!(typeof n === "number") || Math.floor(n) !== n) {
+   
+    if(!(typeof n === "number") || Math.floor(n) !== n)  
         throw 'Unable to compute factorial of non integer values'
-    }
-
-    if (n >= 100) {
-        throw 'Unable to compute factorial for n > 100'
-    }
-
-    if (0 === n) {
-        return 1;
-    }
-
-    return n * Util.factorial(n - 1);
+    if(n == 0) 
+        return 1
+    if(n < 0) 
+        throw 'Unable to compute factorial for n < 0'
+    
+    return (n * Util.factorial(n-1));
 };
 
-/**
+/**WXW
+
  * Calcule la disposition ordonnée de r éléments dans un ensemble de n elements.
  * Formule: Util.arrangement(n, r) = n! / (n - r)!
  * @param {number} n
@@ -35,6 +27,12 @@ Util.factorial = function(n) {
  */
 Util.arrangement = function(n, r) {
 
+    if (!(typeof r === "number") || Math.floor(r) !== r) 
+        throw 'Unable to compute arrangement of non integer values'
+    if(r > n) 
+        throw 'Unable to compute arrangement for (n-r) < 0'
+
+    return Util.factorial(n) / Util.factorial(n - r)            
 };
 
 /**
@@ -46,6 +44,7 @@ Util.arrangement = function(n, r) {
  */
 Util.combination = function(n, r) {
 
+    return Util.arrangement(n, r) / Util.factorial(r)
 };
 
 /**
@@ -58,6 +57,25 @@ Util.combination = function(n, r) {
  */
 Util.isPrime = function(n) {
 
+    var i = 2;
+
+    if (!(typeof n === "number") || Math.floor(n) !== n) 
+        throw 'Unable to compute isPrime of non integer values'
+    
+    if (n <= 0) 
+        throw 'Unable to compute isPrime for n <= 0'
+
+    if (n === 1) 
+        return false
+
+    if (n === 2 || n === 3) 
+        return true
+    
+    for(i ; i < n ; i++){
+        if( n % i === 0 ) return false
+    }
+    
+    return true
 };
 
 
@@ -72,6 +90,19 @@ Util.isPrime = function(n) {
  */
 Util.sumPrime = function(n) {
 
+    var count = 0;
+
+    if (!(typeof n === "number") || Math.floor(n) !== n)
+        throw 'Unable to compute sumPrime of non integer values'
+    if (n < 2)
+        throw 'Unable to compute sumPrime for n < 2'
+
+    for(var i = 2 ; i <= n ; i++){
+        if(Util.isPrime(i) === true){
+            count = count + i;
+        }
+     }
+    return count;
 };
 
 /**
